@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"os"
 	"path"
+	"path/filepath"
 	"strconv"
 )
 
@@ -67,7 +68,12 @@ func PostUpdate(c *gin.Context) {
 	}
 
 	version.IsLatest = true
-	version.Entrypoint = path.Join(root, "player")
+	version.Entrypoint, err = filepath.Abs(path.Join(root, "player"))
+	if err != nil {
+		utils.RenderError(c, "make absolute path", err)
+		return
+	}
+	database.Db.Model(&database.PlayerVersion{}).Where("player_id = ?", player.ID).Update("is_latest", 0)
 	database.Db.Save(&version)
 
 	if _, noredir := c.GetQuery("noredir"); noredir {
