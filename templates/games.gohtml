@@ -1,0 +1,59 @@
+{{ block "title" . }}Zoznam hier{{ end }}
+
+{{ block "body" . }}
+<div class="mx-auto px-8 my-16 container">
+    <h1 class="font-extrabold text-4xl mb-8">Zoznam hier</h1>
+
+    <table class="w-full">
+        <thead class="text-left">
+            <tr class="border-b border-gray-600 bg-gray-700">
+                <th class="p-4">#</th>
+                <th class="p-4">Timestamp</th>
+                <th class="p-4">Stav</th>
+                <th class="p-4">Mapa</th>
+                <th class="p-4">Skóre</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {{ range .games }}
+            <tr class="border-b border-b-gray-600 hover:bg-gray-800">
+                <td class="p-4">{{ .ID }}</td>
+                <td class="p-4">{{ .CreatedAt | formatDate }}</td>
+                <td class="p-4">
+                    {{ if eq .State "CREATED" }}
+                    <span class="bg-gray-400 text-gray-700 py-1 px-2 font-bold rounded">Čaká na ukončenie</span>
+                    {{ else if eq .State "WAITING" }}
+                    <span class="bg-gray-400 text-gray-700 py-1 px-2 font-bold rounded">Čaká na prehratie</span>
+                    {{ else if eq .State "PLAYING" }}
+                    <span class="bg-amber-300 text-amber-700 py-1 px-2 font-bold rounded">Premiéra</span>
+                    {{ else if eq .State "DONE" }}
+                    <span class="bg-green-400 text-green-800 py-1 px-2 font-bold rounded">Skončená</span>
+                    {{ else if eq .State "DNF" }}
+                    <span class="bg-red-400 text-red-800 py-1 px-2 font-bold rounded" title="Did Not Finish">DNF</span>
+                    {{ else }}
+                        {{ .State }}
+                    {{ end }}
+                </td>
+                <td class="p-4 text-sm">{{ .Map.Name }}</td>
+                <td class="p-4 text-sm">
+                    {{ if eq .State "DONE" }}
+                    {{ .Scoresf }}
+                    {{ end }}
+                </td>
+                <td class="p-4 text-right">
+                    {{ if eq .State "DONE" }}
+                    <!-- TODO: Links -->
+                    <a href="/observer?file=/games/{{ .ID }}/observer.log" class="underline text-blue-700 hover:text-blue-400">Prehrať</a>
+                    &middot;
+                    <a href="/games/{{ .ID }}/observer.log" class="underline text-blue-700 hover:text-blue-400">Stiahnúť</a>
+                    {{ end }}
+                </td>
+            </tr>
+            {{ end }}
+
+        </tbody>
+    </table>
+</div>
+{{ end }}

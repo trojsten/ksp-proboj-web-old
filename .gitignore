@@ -1,0 +1,6 @@
+tmp/
+node_modules/
+config.json
+datafolder/
+uploads/
+*.db

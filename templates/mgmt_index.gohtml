@@ -1,0 +1,27 @@
+{{ block "title" . }}Management klienta{{ end }}
+
+{{ block "body" . }}
+<div class="mx-auto px-8 my-16 prose prose-invert">
+    <h1>Management klienta</h1>
+    <p>Aktuálne skóre: <b>{{ .player.Score }}b</b></p>
+
+    <h2>Nahrať novú verziu</h2>
+
+    <form action="/management/update/" method="post" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <button type="submit" class="bg-blue-700 py-1 px-3 font-bold rounded hover:bg-blue-800">Nahrať</button>
+    </form>
+
+    <h2>Verzie</h2>
+    <ul>
+        {{ range .versions }}
+        <li>
+            v{{ .Version }} ({{ .CreatedAt | formatDate }})
+            {{ if .IsLatest }}
+            <span class="text-sm py-0.5 px-2 text-green-800 bg-green-400 font-bold rounded">Aktuálna</span>
+            {{ end }}
+        </li>
+        {{ end }}
+    </ul>
+</div>
+{{ end }}
