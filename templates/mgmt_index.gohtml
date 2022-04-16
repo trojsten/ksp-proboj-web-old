@@ -3,7 +3,10 @@
 {{ block "body" . }}
 <div class="mx-auto px-8 my-16 prose prose-invert">
     <h1>Management klienta</h1>
-    <p>Aktuálne skóre: <b>{{ .player.Score }}b</b></p>
+    <p>
+        Prihlásený: <b>{{ .player.Name }}b</b><br>
+        Aktuálne skóre: <b>{{ .player.Score }}b</b>
+    </p>
 
     <h2>Nahrať novú verziu</h2>
 
