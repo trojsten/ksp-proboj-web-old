@@ -13,6 +13,7 @@ type Config struct {
 	ServerCommand string  `json:"server_command"`
 	PlayerTimeout float32 `json:"player_timeout"`
 	GamesAhead    int     `json:"games_ahead"`
+	MakeCommand   string  `json:"make_command"`
 }
 
 var Configuration Config

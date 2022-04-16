@@ -55,4 +55,24 @@ func PostUpdate(c *gin.Context) {
 		utils.RenderError(c, "unpack", err)
 		return
 	}
+
+	compilerStderr, err := compiler.Compile(root)
+	if compilerStderr != "" {
+		c.String(500, "error while compiling:\n%s", compilerStderr)
+		return
+	}
+	if err != nil {
+		utils.RenderError(c, "compile", err)
+		return
+	}
+
+	version.IsLatest = true
+	version.Entrypoint = path.Join(root, "player")
+	database.Db.Save(&version)
+
+	if _, noredir := c.GetQuery("noredir"); noredir {
+		c.String(200, "OK")
+	} else {
+		c.Redirect(http.StatusFound, "/management/")
+	}
 }
