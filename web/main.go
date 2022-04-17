@@ -4,9 +4,11 @@ import (
 	"github.com/gin-gonic/gin"
 	"html/template"
 	"io/ioutil"
+	"ksp.sk/proboj/web/web/observer"
 	"ksp.sk/proboj/web/web/player"
 	"ksp.sk/proboj/web/web/public"
 	"path"
+	"strings"
 	"time"
 )
 import "github.com/gin-contrib/multitemplate"
@@ -31,7 +33,11 @@ func prepareTamplates() multitemplate.Renderer {
 			continue
 		}
 
-		r.AddFromFilesFuncs(info.Name(), funcs, "templates/base.gohtml", path.Join("templates", info.Name()))
+		if strings.HasPrefix(info.Name(), "_") {
+			r.AddFromFilesFuncs(info.Name(), funcs, path.Join("templates", info.Name()))
+		} else {
+			r.AddFromFilesFuncs(info.Name(), funcs, "templates/base.gohtml", path.Join("templates", info.Name()))
+		}
 	}
 	return r
 }
@@ -49,7 +55,9 @@ func Start() {
 	r.GET("/", public.GetIndex)
 	r.GET("/docs/", public.GetDocs)
 	r.GET("/games/", public.GetGames)
-	r.GET("/games/:id/observer.log", public.GetObserverLog)
+	r.GET("/games/:id/observer", public.GetObserverLog)
+
+	r.GET("/observer/autoplay/", observer.GetAutoPlay)
 
 	auth := r.Group("management", player.AuthRequired)
 	auth.GET("/", player.GetPlayerSite)

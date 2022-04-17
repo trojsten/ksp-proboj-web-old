@@ -15,6 +15,7 @@ type Config struct {
 	GamesAhead    int     `json:"games_ahead"`
 	MakeCommand   string  `json:"make_command"`
 	RunGames      bool    `json:"run_games"`
+	PresenterIP   string  `json:"presenter_ip"`
 }
 
 var Configuration Config

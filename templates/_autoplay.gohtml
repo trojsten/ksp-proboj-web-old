@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Autoplay | Proboj</title>
+    <link rel="stylesheet" href="/static/app.css">
+
+    <meta http-equiv="refresh" content="5{{ if ne .game.ID 0 }}; url=/observer/?file=/games/{{ .game.ID }}/observer&autoplay=1{{ end }}">
+</head>
+<body class="bg-gray-900 text-white flex items-center justify-center w-screen h-screen">
+
+    <div class="max-w-lg w-full rounded-t shadow-xl">
+        <div class="font-bold bg-gray-800 text-3xl text-center p-6 rounded-t-xl">
+            Aktuálne skóre
+        </div>
+
+        <div class="bg-gray-700 p-8 rounded-b-xl text-4xl flex flex-col gap-6">
+            {{ range .players }}
+            <div class="flex items-center">
+                <span>{{ .Name }}</span>
+                <span class="ml-auto font-bold">{{ .Score }}</span>
+            </div>
+            {{ end }}
+        </div>
+    </div>
+
+</body>
+</html>

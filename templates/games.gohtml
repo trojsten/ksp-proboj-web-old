@@ -45,9 +45,9 @@
                 <td class="p-4 text-right">
                     {{ if eq .State "DONE" }}
                     <!-- TODO: Links -->
-                    <a href="/observer?file=/games/{{ .ID }}/observer.log" class="underline text-blue-700 hover:text-blue-400">Prehrať</a>
+                    <a href="/observer/?file=/games/{{ .ID }}/observer" class="underline text-blue-700 hover:text-blue-400">Prehrať</a>
                     &middot;
-                    <a href="/games/{{ .ID }}/observer.log" class="underline text-blue-700 hover:text-blue-400">Stiahnúť</a>
+                    <a href="/games/{{ .ID }}/observer" class="underline text-blue-700 hover:text-blue-400">Stiahnúť</a>
                     {{ end }}
                 </td>
             </tr>
