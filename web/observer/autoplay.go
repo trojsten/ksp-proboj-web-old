@@ -19,8 +19,8 @@ func GetAutoPlay(c *gin.Context) {
 	var game database.Game
 	database.Db.Model(&database.Game{}).Where("state = ?", database.GamePlaying).Update("state", database.GameDone)
 	database.Db.Where("state = ?", database.GameWaiting).Order("id asc").Limit(1).Find(&game)
-	//game.State = database.GamePlaying
-	//database.Db.Save(&game)
+	game.State = database.GamePlaying
+	database.Db.Save(&game)
 
 	var players []database.Player
 	database.Db.Order("score desc").Find(&players)
