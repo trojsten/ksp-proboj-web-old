@@ -27,7 +27,7 @@ func ProcessGame(game database.Game) error {
 	game.Gamefolder = path.Join(config.Configuration.DataFolder, fmt.Sprintf("game-%06d", game.ID))
 	database.Db.Save(&game)
 
-	var players []string
+	players := []string{}
 	for _, player := range game.Players {
 		players = append(players, player.Player.Name)
 	}
@@ -63,7 +63,7 @@ func ProcessGame(game database.Game) error {
 }
 
 func ScoresFromFile(game Game) (database.Scores, error) {
-	file, err := os.OpenFile(path.Join(game.Gamefolder, "scores"), os.O_RDONLY, os.ModePerm)
+	file, err := os.OpenFile(path.Join(game.Gamefolder, "score"), os.O_RDONLY, os.ModePerm)
 	if err != nil {
 		return nil, err
 	}

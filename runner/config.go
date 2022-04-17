@@ -8,11 +8,11 @@ import (
 type Config struct {
 	Server  string            `json:"server"`
 	Players map[string]string `json:"players"`
-	Timeout float32
+	Timeout float32           `json:"timeout"`
 }
 
 func (c Config) Save(path string) error {
-	file, err := os.OpenFile(path, os.O_CREATE, os.ModePerm)
+	file, err := os.OpenFile(path, os.O_RDWR|os.O_CREATE, os.ModePerm)
 	if err != nil {
 		return err
 	}

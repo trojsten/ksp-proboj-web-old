@@ -16,7 +16,8 @@ func RunnerLoop() {
 
 func runnerTick() {
 	var game database.Game
-	database.Db.Where("state = ?", database.GameCreated).Order("id asc").Limit(1).Find(&game)
+	database.Db.Where("state = ?", database.GameCreated).Order("id asc").Limit(1).
+		Preload("Map").Preload("Players").Preload("Players.Player").Find(&game)
 	if game.ID == 0 {
 		return
 	}
@@ -38,7 +39,7 @@ func GeneratorLoop() {
 
 func generatorTick() {
 	var pendingGames int64
-	database.Db.Model(&database.Game{}).Where("state = ?", database.GameCreated).Count(&pendingGames)
+	database.Db.Model(&database.Game{}).Where("state = ? OR state = ?", database.GameCreated, database.GameWaiting).Count(&pendingGames)
 	if pendingGames >= int64(config.Configuration.GamesAhead) {
 		return
 	}

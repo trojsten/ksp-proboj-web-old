@@ -12,7 +12,7 @@ type Game struct {
 }
 
 func (g Game) Save(path string) error {
-	file, err := os.OpenFile(path, os.O_CREATE, os.ModePerm)
+	file, err := os.OpenFile(path, os.O_RDWR|os.O_CREATE, os.ModePerm)
 	if err != nil {
 		return err
 	}

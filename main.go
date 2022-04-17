@@ -18,7 +18,10 @@ func main() {
 		panic(err)
 	}
 
-	go runner.GeneratorLoop()
+	if config.Configuration.RunGames {
+		go runner.GeneratorLoop()
+		go runner.RunnerLoop()
+	}
 
 	web.Start()
 }
