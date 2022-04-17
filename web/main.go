@@ -66,6 +66,7 @@ func Start() {
 	auth.POST("/update/", player.PostUpdate)
 
 	r.GET("/api/games/", api.GetGames)
+	r.GET("/api/config/", api.GetConfig)
 
 	err := r.Run()
 	if err != nil {

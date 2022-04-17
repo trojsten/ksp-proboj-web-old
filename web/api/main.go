@@ -3,6 +3,7 @@ package api
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"ksp.sk/proboj/web/database"
 	"ksp.sk/proboj/web/runner"
 	"ksp.sk/proboj/web/web/utils"
 	"path"
@@ -50,4 +51,10 @@ func GetGames(c *gin.Context) {
 	}
 
 	c.JSON(200, games)
+}
+
+func GetConfig(c *gin.Context) {
+	var players []database.PlayerVersion
+	database.Db.Where("is_latest = 1").Preload("Player").Find(&players)
+	c.JSON(200, runner.BuildConfig(players))
 }
