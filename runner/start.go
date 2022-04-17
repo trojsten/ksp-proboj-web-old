@@ -31,5 +31,12 @@ func RunGame(conf Config, game Game) error {
 
 	log.Printf("Starting game in %v.\n", temp)
 	cmd := exec.Command(config.Configuration.RunnerCommand, path.Join(temp, "config.json"), path.Join(temp, "games.json"))
-	return cmd.Run()
+
+	if config.Configuration.RunnerDebug {
+		cmd.Stdout = os.Stdout
+		cmd.Stderr = os.Stderr
+	}
+	err = cmd.Run()
+	log.Printf("Game %s over.\n", temp)
+	return err
 }

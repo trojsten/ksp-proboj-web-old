@@ -7,6 +7,7 @@ import (
 
 type Config struct {
 	RunnerCommand string  `json:"runner_command"`
+	RunnerDebug   bool    `json:"runner_debug"`
 	DataFolder    string  `json:"data_folder"`
 	UploadFolder  string  `json:"upload_folder"`
 	Database      string  `json:"database"`
