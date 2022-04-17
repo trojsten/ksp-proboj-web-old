@@ -10,7 +10,7 @@ import (
 func RunnerLoop() {
 	for {
 		runnerTick()
-		time.Sleep(15 * time.Second)
+		time.Sleep(5 * time.Second)
 	}
 }
 
