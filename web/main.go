@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"html/template"
 	"io/ioutil"
+	"ksp.sk/proboj/web/web/api"
 	"ksp.sk/proboj/web/web/observer"
 	"ksp.sk/proboj/web/web/player"
 	"ksp.sk/proboj/web/web/public"
@@ -63,6 +64,8 @@ func Start() {
 	auth := r.Group("management", player.AuthRequired)
 	auth.GET("/", player.GetPlayerSite)
 	auth.POST("/update/", player.PostUpdate)
+
+	r.GET("/api/games/", api.GetGames)
 
 	err := r.Run()
 	if err != nil {
