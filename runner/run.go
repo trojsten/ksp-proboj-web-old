@@ -3,6 +3,7 @@ package runner
 import (
 	"encoding/json"
 	"fmt"
+	"gorm.io/gorm"
 	"ksp.sk/proboj/web/config"
 	"ksp.sk/proboj/web/database"
 	"os"
@@ -59,6 +60,11 @@ func ProcessGame(game database.Game) error {
 	}
 	game.Scores = scoresString
 	database.Db.Save(&game)
+
+	for playerName, score := range scores {
+		database.Db.Model(&database.Player{}).Where("name = ?", playerName).Update("score", gorm.Expr("score + ?", score))
+	}
+
 	return nil
 }
 
