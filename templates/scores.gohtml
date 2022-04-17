@@ -1,0 +1,25 @@
+{{ block "title" . }}Skóre{{ end }}
+
+{{ block "body" . }}
+<div class="mx-auto px-8 my-16 max-w-prose">
+    <h1 class="font-extrabold text-4xl mb-8">Skóre</h1>
+
+    <table class="w-full">
+        <thead class="text-left">
+            <tr class="border-b border-gray-600 bg-gray-700">
+                <th class="p-4">Tím</th>
+                <th class="p-4 text-right">Skóre</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {{ range .players }}
+            <tr class="border-b border-b-gray-600 hover:bg-gray-800">
+                <td class="p-4">{{ .Name }}</td>
+                <td class="p-4 text-right">{{ .Score }}</td>
+            </tr>
+            {{ end }}
+        </tbody>
+    </table>
+</div>
+{{ end }}

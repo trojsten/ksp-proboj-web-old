@@ -54,6 +54,7 @@ func Start() {
 	r.Static("static/", "static")
 
 	r.GET("/", public.GetDocs)
+	r.GET("/scores/", public.GetScores)
 	r.GET("/games/", public.GetGames)
 	r.GET("/games/:id/observer", public.GetObserverLog)
 
