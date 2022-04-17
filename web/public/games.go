@@ -1,10 +1,12 @@
 package public
 
 import (
+	"errors"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"ksp.sk/proboj/web/database"
 	"ksp.sk/proboj/web/web/utils"
+	"os"
 	"path"
 )
 
@@ -26,5 +28,13 @@ func GetObserverLog(c *gin.Context) {
 		return
 	}
 
-	c.FileAttachment(path.Join(game.Gamefolder, "observer"), fmt.Sprintf("observer-%d", game.ID))
+	file := path.Join(game.Gamefolder, "observer.gz")
+	ext := ".gz"
+	_, err := os.Stat(file)
+	if errors.Is(err, os.ErrNotExist) {
+		file = path.Join(game.Gamefolder, "observer")
+		ext = ""
+	}
+
+	c.FileAttachment(path.Join(game.Gamefolder, "observer"), fmt.Sprintf("observer-%d%s", game.ID, ext))
 }
