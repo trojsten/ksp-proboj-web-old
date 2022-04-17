@@ -36,5 +36,5 @@ func GetObserverLog(c *gin.Context) {
 		ext = ""
 	}
 
-	c.FileAttachment(path.Join(game.Gamefolder, "observer"), fmt.Sprintf("observer-%d%s", game.ID, ext))
+	c.FileAttachment(file, fmt.Sprintf("observer-%06d%s", game.ID, ext))
 }

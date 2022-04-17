@@ -57,7 +57,8 @@ func Start() {
 	r.GET("/games/", public.GetGames)
 	r.GET("/games/:id/observer", public.GetObserverLog)
 
-	r.GET("/observer/autoplay/", observer.GetAutoPlay)
+	r.Static("/observer/", "observer")
+	r.GET("/autoplay/", observer.GetAutoPlay)
 
 	auth := r.Group("management", player.AuthRequired)
 	auth.GET("/", player.GetPlayerSite)
