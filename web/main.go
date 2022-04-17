@@ -53,8 +53,7 @@ func Start() {
 
 	r.Static("static/", "static")
 
-	r.GET("/", public.GetIndex)
-	r.GET("/docs/", public.GetDocs)
+	r.GET("/", public.GetDocs)
 	r.GET("/games/", public.GetGames)
 	r.GET("/games/:id/observer", public.GetObserverLog)
 
