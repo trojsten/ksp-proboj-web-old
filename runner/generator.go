@@ -14,7 +14,7 @@ func GenerateGame() (database.Game, error) {
 	}
 
 	var maps []database.Map
-	database.Db.Find(&maps)
+	database.Db.Where("is_enabled = 1").Find(&maps)
 	if len(versions) == 0 {
 		return database.Game{}, fmt.Errorf("no available maps")
 	}
