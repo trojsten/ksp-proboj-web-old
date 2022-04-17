@@ -40,6 +40,8 @@ Observer chce byť `index.html`. Observer dostáva optional GET parametre `file`
 Hráči budú nahrávať `.tar.gz` archív so zdrojákmi a `Makefile`. Web spúšťa target `player`
 v Makefile. Je výhodné, aby tento Makefile obsahoval aj target, ktorý vyrobí `.tar.gz`.
 
+Chceš ešte napísať dokumentáciu tvojej hry do `templates/docs.gohtml`.
+
 Hráči na inom operačnom systéme budú potrebovať niečo, čo vie vyrábať `.tar.gz` - napríklad
 [7-Zip](https://www.7-zip.org/) to dokáže.
 
