@@ -18,7 +18,7 @@
         <div class="bg-gray-700 p-8 rounded-b-xl text-4xl flex flex-col gap-6">
             {{ range .players }}
             <div class="flex items-center">
-                <span>{{ .Name }}</span>
+                <span>{{ .PrettyName }}</span>
                 <span class="ml-auto font-bold">{{ .Score }}</span>
             </div>
             {{ end }}
