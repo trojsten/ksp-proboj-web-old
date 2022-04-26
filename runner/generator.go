@@ -16,7 +16,7 @@ func RandomMap() (database.Map, error) {
 	return maps[rand.Intn(len(maps))], nil
 }
 
-func RandomPlayers() ([]database.PlayerVersion, error) {
+func RandomPlayers(mp database.Map) ([]database.PlayerVersion, error) {
 	var versions []database.PlayerVersion
 	database.Db.Where("is_latest = 1").Preload("Player").Find(&versions)
 	if len(versions) < 2 {
@@ -27,16 +27,20 @@ func RandomPlayers() ([]database.PlayerVersion, error) {
 		versions[i], versions[j] = versions[j], versions[i]
 	})
 
+	if len(versions) > mp.MaxPlayers {
+		versions = versions[:mp.MaxPlayers]
+	}
+
 	return versions, nil
 }
 
 func GenerateGame() (database.Game, error) {
-	versions, err := RandomPlayers()
+	pickedMap, err := RandomMap()
 	if err != nil {
 		return database.Game{}, err
 	}
 
-	pickedMap, err := RandomMap()
+	versions, err := RandomPlayers(pickedMap)
 	if err != nil {
 		return database.Game{}, err
 	}
