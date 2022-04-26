@@ -6,9 +6,10 @@ import (
 )
 
 type Config struct {
-	Server  string            `json:"server"`
-	Players map[string]string `json:"players"`
-	Timeout float32           `json:"timeout"`
+	Server        string            `json:"server"`
+	ServerWorkdir string            `json:"server_workdir"`
+	Players       map[string]string `json:"players"`
+	Timeout       float32           `json:"timeout"`
 }
 
 func (c Config) Save(path string) error {

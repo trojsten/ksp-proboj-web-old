@@ -6,15 +6,17 @@ import (
 	"gorm.io/gorm"
 	"ksp.sk/proboj/web/config"
 	"ksp.sk/proboj/web/database"
+	"math/rand"
 	"os"
 	"path"
 )
 
 func BuildConfig(players []database.PlayerVersion) Config {
 	c := Config{
-		Server:  config.Configuration.ServerCommand,
-		Players: map[string]string{},
-		Timeout: config.Configuration.PlayerTimeout,
+		ServerWorkdir: config.Configuration.ServerWorkdir,
+		Server:        config.Configuration.ServerCommand,
+		Players:       map[string]string{},
+		Timeout:       config.Configuration.PlayerTimeout,
 	}
 
 	for _, player := range players {

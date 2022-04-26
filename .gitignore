@@ -4,3 +4,4 @@ config.json
 datafolder/
 uploads/
 *.db
+observer
