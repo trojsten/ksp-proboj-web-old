@@ -32,7 +32,7 @@ func GetGames(c *gin.Context) {
 			return
 		}
 
-		playerVers, err := runner.RandomPlayers()
+		playerVers, err := runner.RandomPlayers(gMap)
 		if err != nil {
 			utils.RenderError(c, "random players", err)
 			return
