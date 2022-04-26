@@ -52,6 +52,7 @@ func Start() {
 	r.HTMLRender = prepareTamplates()
 
 	r.Static("static/", "static")
+	r.Static("download/", "download")
 
 	r.GET("/", public.GetDocs)
 	r.GET("/scores/", public.GetScores)
