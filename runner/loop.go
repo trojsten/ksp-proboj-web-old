@@ -25,6 +25,8 @@ func runnerTick() {
 	log.Printf("Found game %d\n", game.ID)
 	err := ProcessGame(game)
 	if err != nil {
+		game.State = database.GameDNF
+		database.Db.Save(&game)
 		log.Printf("Error while running game %d: %s\n", game.ID, err.Error())
 		return
 	}
