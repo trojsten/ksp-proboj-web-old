@@ -35,6 +35,10 @@ func ProcessGame(game database.Game) error {
 		players = append(players, player.Player.Name)
 	}
 
+	rand.Shuffle(len(players), func(i, j int) {
+		players[i], players[j] = players[j], players[i]
+	})
+
 	probojGame := Game{
 		Gamefolder: game.Gamefolder,
 		Players:    players,
