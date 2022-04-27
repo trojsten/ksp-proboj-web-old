@@ -1,11 +1,13 @@
 package runner
 
 import (
+	"context"
 	"ksp.sk/proboj/web/config"
 	"log"
 	"os"
 	"os/exec"
 	"path"
+	"time"
 )
 
 type GameResult struct {
@@ -30,7 +32,11 @@ func RunGame(conf Config, game Game) error {
 	}
 
 	log.Printf("Starting game in %v.\n", temp)
-	cmd := exec.Command(config.Configuration.RunnerCommand, path.Join(temp, "config.json"), path.Join(temp, "games.json"))
+
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Minute)
+	defer cancel()
+
+	cmd := exec.CommandContext(ctx, config.Configuration.RunnerCommand, path.Join(temp, "config.json"), path.Join(temp, "games.json"))
 
 	if config.Configuration.RunnerDebug {
 		cmd.Stdout = os.Stdout

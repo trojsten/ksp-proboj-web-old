@@ -12,7 +12,7 @@ import (
 
 func GetGames(c *gin.Context) {
 	var games []database.Game
-	database.Db.Preload("Players").Preload("Players.Player").Preload("Map").Order("created_at desc").Find(&games)
+	database.Db.Preload("Players").Preload("Players.Player").Preload("Map").Order("created_at desc").Limit(500).Find(&games)
 
 	utils.Render(c, "games.gohtml", gin.H{
 		"games": games,
