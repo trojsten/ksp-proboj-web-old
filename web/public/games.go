@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"ksp.sk/proboj/web/config"
 	"ksp.sk/proboj/web/database"
 	"ksp.sk/proboj/web/web/utils"
 	"os"
@@ -28,11 +29,11 @@ func GetObserverLog(c *gin.Context) {
 		return
 	}
 
-	file := path.Join(game.Gamefolder, "observer.gz")
+	file := path.Join(config.Configuration.DataFolder, game.Gamefolder, "observer.gz")
 	ext := ".gz"
 	_, err := os.Stat(file)
 	if errors.Is(err, os.ErrNotExist) {
-		file = path.Join(game.Gamefolder, "observer")
+		file = path.Join(config.Configuration.DataFolder, game.Gamefolder, "observer")
 		ext = ""
 	}
 

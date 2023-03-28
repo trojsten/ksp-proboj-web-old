@@ -13,7 +13,7 @@ import (
 
 func BuildConfig(players []database.PlayerVersion) Config {
 	c := Config{
-		GameRoot: config.Configuration.GameRoot,
+		GameRoot: config.Configuration.DataFolder,
 		Server:   config.Configuration.ServerCommand,
 		Players:  map[string]string{},
 		Timeout:  config.Configuration.PlayerTimeout,
@@ -27,7 +27,7 @@ func BuildConfig(players []database.PlayerVersion) Config {
 }
 
 func ProcessGame(game database.Game) error {
-	game.Gamefolder = path.Join(config.Configuration.DataFolder, fmt.Sprintf("game-%06d", game.ID))
+	game.Gamefolder = fmt.Sprintf("game-%06d", game.ID)
 	database.Db.Save(&game)
 
 	players := []string{}
@@ -75,7 +75,7 @@ func ProcessGame(game database.Game) error {
 }
 
 func ScoresFromFile(game Game) (database.Scores, error) {
-	file, err := os.OpenFile(path.Join(game.Gamefolder, "score"), os.O_RDONLY, os.ModePerm)
+	file, err := os.OpenFile(path.Join(config.Configuration.DataFolder, game.Gamefolder, "score"), os.O_RDONLY, os.ModePerm)
 	if err != nil {
 		return nil, err
 	}

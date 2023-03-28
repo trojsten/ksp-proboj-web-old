@@ -28,11 +28,15 @@ func Unpack(r io.Reader, root string) error {
 		}
 
 		if header.Typeflag == tar.TypeDir {
-			err := os.Mkdir(path.Join(root, header.Name), os.ModePerm)
+			err := os.MkdirAll(path.Join(root, header.Name), os.ModePerm)
 			if err != nil {
 				return err
 			}
 		} else if header.Typeflag == tar.TypeReg {
+			err := os.MkdirAll(path.Join(root, path.Dir(header.Name)), os.ModePerm)
+			if err != nil {
+				return err
+			}
 			file, err := os.Create(path.Join(root, header.Name))
 			if err != nil {
 				return err
