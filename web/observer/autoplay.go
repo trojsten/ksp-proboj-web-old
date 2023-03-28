@@ -11,17 +11,17 @@ import (
 func GetAutoPlay(c *gin.Context) {
 	ip, _ := c.RemoteIP()
 	presenter := net.ParseIP(config.Configuration.PresenterIP)
-	if !ip.Equal(presenter) {
-		c.String(403, "forbidden %s", ip.String())
-		return
-	}
-
 	var game database.Game
-	database.Db.Model(&database.Game{}).Where("state = ?", database.GamePlaying).Update("state", database.GameDone)
-	database.Db.Where("state = ?", database.GameWaiting).Order("id asc").Limit(1).Find(&game)
-	if game.ID != 0 {
-		game.State = database.GamePlaying
-		database.Db.Save(&game)
+
+	if !ip.Equal(presenter) {
+		database.Db.Where("state = ?", database.GameDone).Order("id desc").Limit(1).Find(&game)
+	} else {
+		database.Db.Model(&database.Game{}).Where("state = ?", database.GamePlaying).Update("state", database.GameDone)
+		database.Db.Where("state = ?", database.GameWaiting).Order("id asc").Limit(1).Find(&game)
+		if game.ID != 0 {
+			game.State = database.GamePlaying
+			database.Db.Save(&game)
+		}
 	}
 
 	var players []database.Player

@@ -8,28 +8,42 @@ import (
 )
 
 func RunnerLoop() {
+	ch := make(chan database.Game)
+
+	for i := 0; i < config.Configuration.GamesConcurrency; i++ {
+		go runnerWorker(ch)
+	}
+
 	for {
-		runnerTick()
+		runnerTick(ch)
 		time.Sleep(5 * time.Second)
 	}
 }
 
-func runnerTick() {
+func runnerWorker(ch chan database.Game) {
+	for {
+		game := <-ch
+		log.Printf("Found game %d\n", game.ID)
+		game.State = database.GameRunning
+		database.Db.Save(&game)
+
+		err := ProcessGame(game)
+		if err != nil {
+			game.State = database.GameDNF
+			database.Db.Save(&game)
+			log.Printf("Error while running game %d: %s\n", game.ID, err.Error())
+		}
+	}
+}
+
+func runnerTick(ch chan database.Game) {
 	var game database.Game
 	database.Db.Where("state = ?", database.GameCreated).Order("id asc").Limit(1).
 		Preload("Map").Preload("Players").Preload("Players.Player").Find(&game)
 	if game.ID == 0 {
 		return
 	}
-
-	log.Printf("Found game %d\n", game.ID)
-	err := ProcessGame(game)
-	if err != nil {
-		game.State = database.GameDNF
-		database.Db.Save(&game)
-		log.Printf("Error while running game %d: %s\n", game.ID, err.Error())
-		return
-	}
+	ch <- game
 }
 
 func GeneratorLoop() {

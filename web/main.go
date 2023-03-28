@@ -65,6 +65,8 @@ func Start() {
 	auth := r.Group("management", player.AuthRequired)
 	auth.GET("/", player.GetPlayerSite)
 	auth.POST("/update/", player.PostUpdate)
+	auth.GET("/log/:id", player.GetLog)
+	auth.GET("/log/:id/server", player.GetServerLog)
 
 	r.GET("/api/games/", api.GetGames)
 	r.GET("/api/config/", api.GetConfig)

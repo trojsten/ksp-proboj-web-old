@@ -7,11 +7,11 @@
     <table class="w-full">
         <thead class="text-left">
             <tr class="border-b border-gray-600 bg-gray-700">
-                <th class="p-4">#</th>
-                <th class="p-4">Timestamp</th>
-                <th class="p-4">Stav</th>
-                <th class="p-4">Mapa</th>
-                <th class="p-4">Skóre</th>
+                <th class="p-2">#</th>
+                <th class="p-2">Timestamp</th>
+                <th class="p-2">Stav</th>
+                <th class="p-2">Mapa</th>
+                <th class="p-2">Skóre</th>
                 <th></th>
             </tr>
         </thead>
@@ -19,11 +19,13 @@
         <tbody>
             {{ range .games }}
             <tr class="border-b border-b-gray-600 hover:bg-gray-800">
-                <td class="p-4">{{ .ID }}</td>
-                <td class="p-4">{{ .CreatedAt | formatDate }}</td>
-                <td class="p-4">
+                <td class="p-2">{{ .ID }}</td>
+                <td class="p-2">{{ .CreatedAt | formatDate }}</td>
+                <td class="p-2 whitespace-nowrap">
                     {{ if eq .State "CREATED" }}
-                    <span class="bg-gray-400 text-gray-700 py-1 px-2 font-bold rounded">Čaká na ukončenie</span>
+                    <span class="bg-gray-400 text-gray-700 py-1 px-2 font-bold rounded">Pripravená</span>
+                    {{ else if eq .State "RUNNING" }}
+                    <span class="bg-gray-400 text-gray-700 py-1 px-2 font-bold rounded">Beží</span>
                     {{ else if eq .State "WAITING" }}
                     <span class="bg-gray-400 text-gray-700 py-1 px-2 font-bold rounded">Čaká na prehratie</span>
                     {{ else if eq .State "PLAYING" }}
@@ -36,18 +38,21 @@
                         {{ .State }}
                     {{ end }}
                 </td>
-                <td class="p-4 text-sm">{{ .Map.Name }}</td>
-                <td class="p-4 text-sm">
+                <td class="p-2 text-sm">{{ .Map.Name }}</td>
+                <td class="p-2 text-sm">
                     {{ if eq .State "DONE" }}
                     {{ .Scoresf }}
                     {{ end }}
                 </td>
-                <td class="p-4 text-right">
+                <td class="p-2 text-right whitespace-nowrap">
                     {{ if eq .State "DONE" }}
-                    <!-- TODO: Links -->
                     <a href="/observer/?file=/games/{{ .ID }}/observer" class="underline text-blue-700 hover:text-blue-400">Prehrať</a>
                     &middot;
                     <a href="/games/{{ .ID }}/observer" class="underline text-blue-700 hover:text-blue-400">Stiahnúť</a>
+                    &middot;
+                    <a href="/management/log/{{ .ID }}" class="underline text-blue-700 hover:text-blue-400">Stiahnúť log hráča</a>
+                    &middot;
+                    <a href="/management/log/{{ .ID }}/server" class="underline text-blue-700 hover:text-blue-400">Stiahnúť log serveru</a>
                     {{ end }}
                 </td>
             </tr>

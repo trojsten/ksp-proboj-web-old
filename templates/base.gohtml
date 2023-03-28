@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
     <title>{{ block "title" . }}{{ end }} | Proboj</title>
-    <link rel="stylesheet" href="/static/app.css">
+    <link rel="stylesheet" href="/static/app.css?v=2">
 </head>
 <body class="bg-gray-900 text-white">
     <div class="w-full bg-center bg-cover flex items-center" style="background-image: url('/static/bg.jpg')">
@@ -18,7 +18,8 @@
         <a href="/games" class="hover:bg-blue-700 py-0.5 px-2 rounded">Odohrané hry</a>
         <a href="/scores" class="hover:bg-blue-700 py-0.5 px-2 rounded">Skóre</a>
         <a href="/observer" class="hover:bg-blue-700 py-0.5 px-2 rounded">Observer</a>
-        <a href="/management" class="hover:bg-amber-700 py-0.5 px-2 rounded">Družinková zóna</a>
+        <a href="/autoplay" class="hover:bg-blue-700 py-0.5 px-2 rounded">Live</a>
+        <a href="/management" class="hover:bg-amber-700 py-0.5 px-2 rounded">Tímová zóna</a>
     </div>
 
     {{ block "body" . }}{{ end }}

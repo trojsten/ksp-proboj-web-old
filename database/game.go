@@ -11,6 +11,7 @@ type GameState string
 
 const (
 	GameCreated GameState = "CREATED"
+	GameRunning           = "RUNNING"
 	GameWaiting           = "WAITING"
 	GamePlaying           = "PLAYING"
 	GameDone              = "DONE"
