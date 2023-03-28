@@ -3,8 +3,8 @@ package database
 import "time"
 
 type Player struct {
-	ID          uint `gorm:"primaryKey"`
-	Name        string
+	ID          uint   `gorm:"primaryKey"`
+	Name        string `gorm:"uniqueIndex"`
 	Password    string
 	Score       int `gorm:"default:0"`
 	DisplayName string

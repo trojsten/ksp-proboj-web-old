@@ -13,10 +13,10 @@ import (
 
 func BuildConfig(players []database.PlayerVersion) Config {
 	c := Config{
-		ServerWorkdir: config.Configuration.ServerWorkdir,
-		Server:        config.Configuration.ServerCommand,
-		Players:       map[string]string{},
-		Timeout:       config.Configuration.PlayerTimeout,
+		GameRoot: config.Configuration.GameRoot,
+		Server:   config.Configuration.ServerCommand,
+		Players:  map[string]string{},
+		Timeout:  config.Configuration.PlayerTimeout,
 	}
 
 	for _, player := range players {

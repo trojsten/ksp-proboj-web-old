@@ -12,8 +12,8 @@ type Config struct {
 	UploadFolder     string  `json:"upload_folder"`
 	Database         string  `json:"database"`
 	ServerCommand    string  `json:"server_command"`
-	ServerWorkdir    string  `json:"server_workdir"`
-	PlayerTimeout    float32 `json:"player_timeout"`
+	GameRoot         string  `json:"game_root"`
+	PlayerTimeout    float64 `json:"player_timeout"`
 	GamesAhead       int     `json:"games_ahead"`
 	GamesConcurrency int     `json:"games_concurrency"`
 	MakeCommand      string  `json:"make_command"`
