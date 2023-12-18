@@ -1,3 +1,6 @@
+> [!WARNING]
+> Nová verzia Proboj Webu je k dispozícií [tu](https://github.com/trojsten/ksp-proboj-web).
+
 # Proboj Web
 
 Koordinačný web určený pre [Proboj Runner](https://github.com/trojsten/ksp-proboj-runner).
